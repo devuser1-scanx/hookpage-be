@@ -4,10 +4,18 @@ from typing import List
 import schemas
 from database import get_db
 from psycopg2.extras import RealDictCursor
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://scanx.squarespace.com"],  
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "OPTIONS"],  
+    allow_headers=["*"], 
+)
 
 @app.get("/coupons/", response_model=List[schemas.Coupon])
 def read_coupons(skip: int = 0, limit: int = 100, db=Depends(get_db)):
