@@ -13,7 +13,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://scanx.squarespace.com"],  
     allow_credentials=True,
-    allow_methods=["GET", "POST", "OPTIONS"],  
+    allow_methods=["GET", "POST", "OPTIONS", "PUT", "DELETE"],  
     allow_headers=["*"], 
 )
 
@@ -21,7 +21,7 @@ app.add_middleware(
 def read_coupons(skip: int = 0, limit: int = 100, db=Depends(get_db)):
     with db.cursor(cursor_factory=RealDictCursor) as cur:
         cur.execute(
-            "SELECT id, coupon_name, discount FROM coupon OFFSET %s LIMIT %s",
+            "SELECT id, coupon_name, discount, coupon_usage FROM coupon OFFSET %s LIMIT %s",
             (skip, limit),
         )
         coupons = cur.fetchall()
