@@ -11,7 +11,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://scanx.squarespace.com"],  
+    allow_origins=["https://scanx.squarespace.com", "https://www.scanx.care"],  
     allow_credentials=True,
     allow_methods=["GET", "POST", "OPTIONS", "PUT", "DELETE"],  
     allow_headers=["*"], 
